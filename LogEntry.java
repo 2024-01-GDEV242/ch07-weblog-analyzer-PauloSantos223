@@ -1,4 +1,5 @@
 import java.util.Calendar;
+import java.util.*;
 
 /**
  * Store the data from a single line of a
@@ -16,7 +17,10 @@ public class LogEntry implements Comparable<LogEntry>
     private int[] dataValues;
     // The equivalent Calendar object for the log time.
     private Calendar when;
-    
+    private int hour;
+    private String day;
+    private String month;
+    private String year;
     // At which index in dataValues the different fields
     // from a log line are stored.
     private static final int YEAR = 0, MONTH = 1, DAY = 2,
@@ -51,16 +55,11 @@ public class LogEntry implements Comparable<LogEntry>
      * @param hour The hour (0-23)
      * @param minute The minute (0-59)
      */
-    public LogEntry(int year, int month, int day, int hour, int minute)
-    {
-        // The array to store the data for a single line.
-        dataValues = new int[NUMBER_OF_FIELDS];
-        dataValues[YEAR] = year;
-        dataValues[MONTH] = month;
-        dataValues[DAY] = day;
-        dataValues[HOUR] = hour;
-        dataValues[MINUTE] = minute;
-        setWhen();
+    public LogEntry(int hour, String day, String month, String year) {
+        this.hour = hour;
+        this.day = day;
+        this.month = month;
+        this.year = year;
     }
     
     /**
@@ -69,7 +68,7 @@ public class LogEntry implements Comparable<LogEntry>
      */
     public int getHour()
     {
-        return dataValues[HOUR];
+        return hour;
     }
 
     /**
@@ -79,6 +78,18 @@ public class LogEntry implements Comparable<LogEntry>
     public int getMinute()
     {
         return dataValues[MINUTE];
+    }
+    
+    public String getDay() {
+        return day;
+    }
+    
+    public String getMonth() {
+        return month;
+    }
+    
+    public String getYear() {
+        return year;
     }
     
     /**

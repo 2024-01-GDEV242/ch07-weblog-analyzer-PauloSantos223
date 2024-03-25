@@ -1,5 +1,5 @@
 Project: weblog-analyzer
-Aothors: David J. Barnes and Michael Kölling
+Aothors: Paulo Santos
 
 This project is part of the material for chapter 7 of the book
 
