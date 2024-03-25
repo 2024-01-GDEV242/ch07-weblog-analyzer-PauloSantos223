@@ -5,65 +5,61 @@ import java.util.*;
  * A class for creating log files of random data.
  * 
  * @author David J. Barnes and Michael Kölling
- * @version    2016.02.29
+ * @version 2016.02.29
  */
-public class LogfileCreator
-{
+public class LogfileCreator {
     private Random rand;
 
     /**
      * Create log files.
      */
-    public LogfileCreator()
-    {
+    public LogfileCreator() {
         rand = new Random();
     }
     
     /**
      * Create a file of random log entries.
-     * @param filename The file to write.
+     * 
+     * @param filename   The file to write.
      * @param numEntries How many entries.
      * @return true if successful, false otherwise.
      */
-    public boolean createFile(String filename, int numEntries)
-    {
+    public boolean createFile(String filename, int numEntries) {
         boolean success = false;
         
-        if(numEntries > 0) {
+        if (numEntries > 0) {
             try (FileWriter writer = new FileWriter(filename)) {
                 LogEntry[] entries = new LogEntry[numEntries];
-                for(int i = 0; i < numEntries; i++) {
+                for (int i = 0; i < numEntries; i++) {
                     entries[i] = createEntry();
                 }
                 Arrays.sort(entries);
-                for(int i = 0; i < numEntries; i++) {
+                for (int i = 0; i < numEntries; i++) {
                     writer.write(entries[i].toString());
                     writer.write('\n');
                 }
                 
                 success = true;
-            }
-            catch(IOException e) {
+            } catch (IOException e) {
                 System.err.println("There was a problem writing to " + filename);
             }
-                
         }
         return success;
     }
     
     /**
      * Create a single (random) entry for a log file.
+     * 
      * @return A log entry containing random data.
      */
-    public LogEntry createEntry()
-    {
-        int year = 2016;
+    public LogEntry createEntry() {
+        int year = 2016 + rand.nextInt(4); // Random year from 2016 to 2019
         int month = 1 + rand.nextInt(12);
         // Avoid the complexities of days-per-month.
         int day = 1 + rand.nextInt(28);
         int hour = rand.nextInt(24);
         int minute = rand.nextInt(60);
-        return new LogEntry(year, month, day, hour, minute);
+        return new LogEntry(hour, Integer.toString(day), Integer.toString(month), Integer.toString(year)); // Updated to match LogEntry constructor
     }
-
 }
+
